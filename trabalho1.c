@@ -1,8 +1,9 @@
 /*---------------------------------------------------------------------------
-  Integrantes: 
-    - Giordano Suffert Monteiro - 170011160; 
-    - Eduardo Lemos Rocha - 170009157; 
+  Integrantes:
+    - Giordano Suffert Monteiro - 170011160;
+    - Eduardo Lemos Rocha - 170009157;
     - Otho Teixeira Komatsu - 170020142
+    - Pedro Lucas Pinto Andrade - 160038316;
 
   Versão do SO: Ubuntu?
   Versão do gcc: usei aqui 7.4.0 mas posso att
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
       break;
     }
   }
-  
+
   if (sleep(30) > 0) // Deixa o processo dormindo e verifica se houve chamada foi interrompida por um manipulador de sinal
   {
       printf("Sleep interrompido.");
