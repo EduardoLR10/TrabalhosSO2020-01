@@ -43,24 +43,19 @@ int main()
 
   int pid, idshm, i;
   struct shmid_ds buf;
-  union semun
-  {
-    int val;
-    struct semid_ds *buf;
-    ushort *array;
-  } arg;
+
   int *msg;
 
   // SEMAPHORE Creation
   if ((release_read_sem_id = semget(0xA656, 1, IPC_CREAT | 0x1ff)) < -1)
   {
-    printf("Erro na criação do semaforo!\n");
+    printf("Erro na criação do semaforo de leitura!\n");
     exit(1);
   }
 
   if ((release_write_sem_id = semget(0xA657, 1, IPC_CREAT | 0x1ff)) < -1)
   {
-    printf("Erro na criação do semaforo!\n");
+    printf("Erro na criação do semaforo de escrita!\n");
     exit(1);
   }
 
@@ -102,10 +97,15 @@ int main()
     exit(0);
   }
 
-
+  // PAI
   msg = (int *) shmat(idshm, (char *)0, 0);
 
-  // PAI
+  if (msg == (int *)-1)
+  {
+    printf("Erro no mapemanto da memoria compartilhada\n");
+    exit(1);
+  }
+
   for (int i = 1; i <= SIZE; i++)
   {
     p_sem(release_read_sem_id);  
@@ -113,20 +113,19 @@ int main()
     v_sem(release_write_sem_id);
   }
 
-  if (msg == (int *)-1)
+  if(shmctl(idshm, IPC_RMID, NULL) < 0)
   {
-    printf("Erro no mapemanto da memoria compartilhada\n");
+    printf("Erro na exclusão da memoria compartilhada\n");
   }
 
-  if (semctl(release_write_sem_id, 0, IPC_RMID, arg) < 0)
-  {
-    printf("Erro na exclusão do semaforo\n");
-  }
-
-  if(semctl(release_read_sem_id, 0, IPC_RMID, arg)){
-    printf("Erro na exclusão do semaforo\n");
+  if(semctl(release_read_sem_id, 0, IPC_RMID, NULL)){
+    printf("Erro na exclusão do semaforo de leitura!\n");
   }
   
-
+  if (semctl(release_write_sem_id, 0, IPC_RMID, NULL) < 0)
+  {
+    printf("Erro na exclusão do semaforo de escrita!\n");
+  }
+  
   return 0;
 }
