@@ -2,7 +2,8 @@
   Integrantes: 
     - Giordano Suffert Monteiro - 170011160; 
     - Eduardo Lemos Rocha - 170009157; 
-    - Otho Teixeira Komatsu - 170020142
+    - Otho Teixeira Komatsu - 170020142;
+    - Pedro Lucas Pinto Andrade - 160038316.
 
   Versão do SO: Ubuntu 16.04
   Versões do gcc testadas: 5.4.0 e 7.4.0
