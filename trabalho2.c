@@ -58,13 +58,13 @@ int main()
   int *msg;
 
   // Cria o semphore
-  if ((release_read_sem_id = semget(0xA656, 1, IPC_CREAT | 0x1ff)) < -1)
+  if ((release_read_sem_id = semget(0xA656, 1, IPC_CREAT | 0x1ff)) == -1)
   {
     printf("Erro na criação do semaforo de leitura!\n");
     exit(1);
   }
 
-  if ((release_write_sem_id = semget(0xA657, 1, IPC_CREAT | 0x1ff)) < -1)
+  if ((release_write_sem_id = semget(0xA657, 1, IPC_CREAT | 0x1ff)) == -1)
   {
     printf("Erro na criação do semaforo de escrita!\n");
     exit(1);
@@ -74,7 +74,7 @@ int main()
   p_sem(release_read_sem_id);
 
   // Cria shared memory
-  if ((idshm = shmget(0xA656, sizeof(int), IPC_CREAT | 0x1ff)) < 0)
+  if ((idshm = shmget(0xA656, sizeof(int), IPC_CREAT | 0x1ff)) == -1)
   {
     printf("Erro na criação da memoria compartilhada!\n");
     exit(1);
@@ -129,11 +129,11 @@ int main()
     printf("Erro na exclusão da memoria compartilhada\n");
   }
 
-  if(semctl(release_read_sem_id, 0, IPC_RMID, NULL)){
+  if(semctl(release_read_sem_id, 0, IPC_RMID, NULL) == -1){
     printf("Erro na exclusão do semaforo de leitura\n");
   }
   
-  if (semctl(release_write_sem_id, 0, IPC_RMID, NULL) < 0)
+  if (semctl(release_write_sem_id, 0, IPC_RMID, NULL) == -1)
   {
     printf("Erro na exclusão do semaforo de escrita\n");
   }
