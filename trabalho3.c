@@ -65,7 +65,7 @@ void P2(int idfila)
 void P1(int idfila)
 {
     t_mensagem msg_rcv;
-    int i, bytes_read;
+    int i;
 
     if(siginterrupt(SIGALRM, 1) == -1)
     {
