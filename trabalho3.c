@@ -107,14 +107,14 @@ int main(){
 
 
     // Cria a fila
-    if((idfila = msgget(0x38316, IPC_CREAT|0x1ff)) < 0)
+    if((idfila = msgget(0x38316, IPC_CREAT|0x1ff)) == -1)
     {
         printf("Erro ao criar a fila de mensagens\n");
         exit(1);
     }
 
     // Cria processo P2 (filho)
-    if((pid = fork()) < 0)
+    if((pid = fork()) == -1)
     {
         printf("Erro ao criar processo P2\n");
         exit(1);
