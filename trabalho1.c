@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
   // Loop para a criação de n processos
   for (i = 0; i < n_filhos; i++)
   {
-    if ((pid = fork()) < 0) // Cria o processo filho e verifica se houve erro
+    if ((pid = fork()) == -1) // Cria o processo filho e verifica se houve erro
     {
       printf("Error na criacao do fork!");
       exit(1);
