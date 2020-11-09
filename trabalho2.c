@@ -1,3 +1,14 @@
+/*---------------------------------------------------------------------------
+  Integrantes:
+    - Giordano Suffert Monteiro - 170011160;
+    - Eduardo Lemos Rocha - 170009157;
+    - Otho Teixeira Komatsu - 170020142
+    - Pedro Lucas Pinto Andrade - 160038316;
+
+  Versão do SO: Ubuntu 16.04
+  Versões do gcc testadas: 5.4.0 e 9.3.0
+---------------------------------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -46,24 +57,24 @@ int main()
 
   int *msg;
 
-  // SEMAPHORE Creation
-  if ((release_read_sem_id = semget(0xA656, 1, IPC_CREAT | 0x1ff)) < -1)
+  // Cria o semphore
+  if ((release_read_sem_id = semget(0xA656, 1, IPC_CREAT | 0x1ff)) == -1)
   {
     printf("Erro na criação do semaforo de leitura!\n");
     exit(1);
   }
 
-  if ((release_write_sem_id = semget(0xA657, 1, IPC_CREAT | 0x1ff)) < -1)
+  if ((release_write_sem_id = semget(0xA657, 1, IPC_CREAT | 0x1ff)) == -1)
   {
     printf("Erro na criação do semaforo de escrita!\n");
     exit(1);
   }
 
-  // Forbids first read until first write
+  // Impede a leitura esperando a primeira escrita
   p_sem(release_read_sem_id);
 
-  // SHARED MEMORY Creation
-  if ((idshm = shmget(0xA656, sizeof(int), IPC_CREAT | 0x1ff)) < 0)
+  // Cria shared memory
+  if ((idshm = shmget(0xA656, sizeof(int), IPC_CREAT | 0x1ff)) == -1)
   {
     printf("Erro na criação da memoria compartilhada!\n");
     exit(1);
@@ -118,13 +129,13 @@ int main()
     printf("Erro na exclusão da memoria compartilhada\n");
   }
 
-  if(semctl(release_read_sem_id, 0, IPC_RMID, NULL)){
-    printf("Erro na exclusão do semaforo de leitura!\n");
+  if(semctl(release_read_sem_id, 0, IPC_RMID, NULL) == -1){
+    printf("Erro na exclusão do semaforo de leitura\n");
   }
   
-  if (semctl(release_write_sem_id, 0, IPC_RMID, NULL) < 0)
+  if (semctl(release_write_sem_id, 0, IPC_RMID, NULL) == -1)
   {
-    printf("Erro na exclusão do semaforo de escrita!\n");
+    printf("Erro na exclusão do semaforo de escrita\n");
   }
   
   return 0;

@@ -2,14 +2,16 @@
   Integrantes: 
     - Giordano Suffert Monteiro - 170011160; 
     - Eduardo Lemos Rocha - 170009157; 
-    - Otho Teixeira Komatsu - 170020142
+    - Otho Teixeira Komatsu - 170020142;
+    - Pedro Lucas Pinto Andrade - 160038316.
 
-  Versão do SO: Ubuntu?
-  Versão do gcc: usei aqui 7.4.0 mas posso att
+  Versão do SO: Ubuntu 16.04
+  Versões do gcc testadas: 5.4.0 e 7.4.0
 ---------------------------------------------------------------------------*/
-#include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
@@ -32,9 +34,9 @@ int main(int argc, char *argv[])
   printf("Sou o processo pai com pid = %d\n", getpid());
 
   // Loop para a criação de n processos
-  for (i=0; i<n_filhos; i++)
+  for (i = 0; i < n_filhos; i++)
   {
-    if ((pid = fork()) < 0) // Cria o processo filho e verifica se houve erro
+    if ((pid = fork()) == -1) // Cria o processo filho e verifica se houve erro
     {
       printf("Error na criacao do fork!");
       exit(1);
