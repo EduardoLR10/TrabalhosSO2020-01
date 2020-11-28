@@ -6,7 +6,7 @@
     - Pedro Lucas Pinto Andrade - 160038316;
 
   Versão do SO: Ubuntu 16.04
-  Versões do gcc testadas: 5.4.0 e 9.3.0
+  Versões do gcc testadas: 5.4.0, 9.3.0 e 10.2.0
 ---------------------------------------------------------------------------*/
 
 #include <stdio.h>
